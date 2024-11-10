@@ -1,0 +1,2243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Store</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to bottom right, #000000, #1D1B20, #381c34, #443256, #764893);
+            color: #fff;    
+        }
+        .container {
+            display: flex;
+        }
+        .container1 {
+            width: 27%;
+            padding: 20px;    
+        }
+        .header {
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        .filter-categories {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px;
+        }
+        .sort-section-lable {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .sort-section select {
+            margin-left: 5%;
+            padding: 5px;
+            width: 100%; 
+            max-width: 300px; 
+            background-color: #DBD7D7;
+            border: none;
+            color: black;
+        }
+       .clear-filters-btn {
+            background-color: #DBD7D7; 
+            color: black; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            margin: 20px 0; 
+        }
+        .clear-filters-btn:hover {
+            background-color: #291c23;
+            color: #ffffff;
+        }
+
+        .container2 {
+            width: 73%;
+            padding: 20px;
+            margin-top: 50px;
+            display: flex;
+            flex-wrap: wrap;  
+        }
+
+        .filters h5 {
+            margin-bottom: 10px;
+            font-weight: 100;
+        }
+        .filters h6 {
+            margin-bottom: 10px;
+            font-size: small;
+            font-style: italic;
+            color: #ECECEC;
+        }
+        .filters ul {
+            list-style: none;
+            padding: 0;
+        }
+        .filters li {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        .filters input[type="checkbox"],
+        .filters input[type="radio"] {
+            margin-right: 10px;
+        }
+        .filter-section {
+            margin-bottom: 30px;
+        }
+        .shoe-model[disabled] {
+            color: gray;
+        } 
+        .col-md-6{
+            max-width: 100%;
+        }
+    
+        .color-checkbox {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .color-checkbox:checked {
+            border: 1px solid #ffccf2; /* Light pink border when selected */
+        }
+/* Specific colors */
+        .black {
+            background-color: black;
+        }
+
+        .white {
+            background-color: white;
+        }
+
+        .grey {
+            background-color: grey;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .purple {
+            background-color: purple;
+        }
+
+        .purplish-red {
+            background-color: #d33682; /* Purplish-red */
+        }
+
+        .pink {
+            background-color: pink;
+        }
+
+        .orange {
+            background-color: orange;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .brown {
+            background-color: brown;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+/* Ensure that the background color is visible even when the checkbox is selected */
+        .color-checkbox:checked {
+            box-shadow: 0 0 0 1px #ffccf2; /* Light pink border when checked */
+        }  
+        .product-list-container {
+            background-color: #291c23;
+            margin-top: 5px;
+            border-radius: 8px;
+        }
+        .card {
+            border-radius: 8px;
+            background-color: #DBD7D7;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   
+        }
+        .card-img-top {
+            
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .card-subtitle {
+            font-size: 16px;
+            color: #555;
+        }
+        .card .shoe-info {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .card .price {
+            font-size: 20px;
+            font-weight: bold;   
+        }
+        .card .price.sale {
+            color: red;
+        }
+
+        .sizes, .colors {
+            margin-bottom: 10px;
+        }
+        .sizes span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .colors .color-block {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            border: 1px solid #333;
+        }
+        .color-black { background-color: black; }
+        .color-white { background-color: white; }
+        .color-grey { background-color: grey; }
+        .color-red { background-color: red; }
+        .color-purple { background-color: purple; }
+        .color-purplish-red { background-color: #d33682; } 
+        .color-pink { background-color: pink; }
+        .color-orange { background-color: orange; }
+        .color-blue { background-color: blue; }
+        .color-yellow { background-color: yellow; }
+        .color-brown { background-color:brown; }
+        .color-green { background-color: green; }
+
+</style>
+</head>
+<body>
+    <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: white; z-index: 9999;"></div>
+
+    <!-- Ctegories & Sort Section -->
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-12">
+    <header class="header row align-items-center">
+    <div class="col-md-6">
+        <div class="d-flex filter-categories justify-content-center">
+            <span class="mx-3 filter-category" data-category="women" role="button">Women</span>
+            <span class="mx-3 filter-category" data-category="men" role="button">Men</span>
+            <span class="mx-3 filter-category" data-category="all" role="button">All</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="sort-section d-flex align-items-center text-md-end">
+            <label class="sort-section-lable me-2" for="sort">Sort By Price</label>
+            <select class="form-select" id="sort">
+                <option value="">Sort By Price</option>
+                <option value="LTH">Low to High</option>
+                <option value="HTL">High to Low</option>
+            </select>
+        </div>
+    </div>
+    </header>
+    <div class="col-md-3 text-center my-2">
+        <div class="filters">
+            <!-- Clear Filters Button -->
+            <button id="clear-filters" class="clear-filters-btn btn btn-light mb-3">Clear All Filters</button>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            
+
+        <div class="filters">
+
+
+            <!-- On Sale / In Stock Section -->
+            <div class="filter-section mb-4">
+                <h5>Availability</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" id="on-sale-checkbox"> On Sale% </label> <span>279</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" id="in-stock-checkbox"> In Stock </label> <span>700</span></li>
+                </ul>
+            </div>
+
+            <!-- Price Section -->
+            <div class="filter-section mb-4">
+                <h5>Price</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="price-checkbox" value="<100"> < 100€ </label> <span>105</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="price-checkbox" value="100-150"> 100€ to 150€ </label> <span>153</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="price-checkbox" value="150-200"> 150€ to 200€ </label> <span>111</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="price-checkbox" value=">200"> 200€ < </label> <span>331</span></li>
+                </ul>
+            </div>
+
+            <!-- Types Section -->
+            <div class="filter-section mb-4">
+                <h5>Types</h5>
+                <ul id="shoe-types" class="list-unstyled">
+                    
+                    <li class="shoe-type mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="all-types" name="shoe-type" value="All"> All </label> <span>700</span></li>
+                    <li class="shoe-type mb-2" data-type="running"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Running"> Running </label> <span>88</span></li>
+                    <li class="shoe-type mb-2" data-type="Training & GYM"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Training & GYM"> Training & GYM </label> <span>74</span></li>
+                    <li class="shoe-type mb-2" data-type="Lifestyle & Casual"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Lifestyle & Casual"> Lifestyle & Casual </label> <span>100</span></li>
+                    <li class="shoe-type mb-2" data-type="Hiking & Outdoor"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Hiking & Outdoor"> Hiking & Outdoor </label> <span>18</span></li>
+                    <li class="shoe-type mb-2" data-type="Sandals & Slides"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Sandals & Slides"> Sandals & Slides </label> <span>41</span></li>
+                    <li class="shoe-type mb-2" data-type="basketball"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Basketball"> Basketball </label> <span>86</span></li>
+                    <li class="shoe-type mb-2" data-type="Soccer/Football Cleats"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Soccer/Football Cleats"> Soccer/Football Cleats </label> <span>75</span></li>
+                    <li class="shoe-type mb-2" data-type="skateboarding"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Skateboarding"> Skateboarding </label> <span>51</span></li>
+                    <li class="shoe-type mb-2" data-type="tennis"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Tennis"> Tennis </label> <span>44</span></li>
+                    <li class="shoe-type mb-2" data-type="golf"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Golf"> Golf </label> <span>34</span></li>
+                    <li class="shoe-type mb-2" data-type="Track & Field"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Track & Field"> Track & Field </label> <span>39</span></li>
+                    <li class="shoe-type mb-2" data-type="cycling"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Cycling"> Cycling </label> <span>20</span></li>
+                    <li class="shoe-type mb-2" data-type="Minimalist & Barefoot"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Minimalist & Barefoot"> Minimalist & Barefoot </label> <span>30</span></li>
+                </ul>
+            </div>
+
+
+            <!-- Models Section -->
+            <div class="filter-section mb-4">
+                <h5>Models</h5>
+                <h6>Choose Your Desired Type to See Models</h6>
+                <ul id="shoe-models" class="list-unstyled">
+                    <li class="shoe-model mb-2" data-model="air-zoom-pegaus"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Zoom Pegasus" data-type="Running"> Nike Air Zoom Pegasus </label> <span>28</span></li>
+                    <li class="shoe-model mb-2" data-model="react-infinity-run"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike React Infinity Run" data-type="Running"> Nike React Infinity Run </label> <span>21</span></li>
+                    <li class="shoe-model mb-2" data-model="zoomx-vaporfly"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike ZoomX Vaporfly" data-type="Running"> Nike ZoomX Vaporfly </label> <span>18</span></li>
+                    <li class="shoe-model mb-2" data-model="free-run"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Free Run" data-type="Running"> Nike Free Run </label> <span>21</span></li>
+                    <li class="shoe-model mb-2" data-model="metcon"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Metcon" data-type="Training & GYM"> Nike Metcon </label> <span>26</span></li>
+                    <li class="shoe-model mb-2" data-model="superrep"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike SuperRep" data-type="Training & GYM"> Nike SuperRep </label> <span>21</span></li>
+                    <li class="shoe-model mb-2" data-model="free-trainer"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Free Trainer" data-type="Training & GYM"> Nike Free Trainer </label> <span>27</span></li>
+                    <li class="shoe-model mb-2" data-model="air-force1"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Force 1" data-type="Lifestyle & Casual"> Nike Air Force 1 </label> <span>24</span></li>
+                    <li class="shoe-model mb-2" data-model="air-max"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Max" data-type="Lifestyle & Casual"> Nike Air Max </label> <span>26</span></li>
+                    <li class="shoe-model mb-2" data-model="blazer"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Blazer" data-type="Lifestyle & Casual"> Nike Blazer </label> <span>28</span></li>
+                    <li class="shoe-model mb-2" data-model="dunk"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Dunk" data-type="Lifestyle & Casual"> Nike Dunk </label> <span>22</span></li>
+                    <li class="shoe-model mb-2" data-model="all-conditions-gear"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike All Conditions Gear" data-type="Hiking & Outdoor"> Nike All Conditions Gear </label> <span>18</span></li>
+                    <li class="shoe-model mb-2" data-model="benassi-slides"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Benassi Slides" data-type="Sandals & Slides"> Nike Benassi Slides </label> <span>24</span></li>
+                    <li class="shoe-model mb-2" data-model="offcourt-slide"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Offcourt Slide" data-type="Sandals & Slides"> Nike Offcourt Slide </label> <span>17</span></li>
+                    <li class="shoe-model mb-2" data-model="lebron-series"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike LeBron Series" data-type="Basketball"> Nike LeBron Series </label> <span>27</span></li>
+                    <li class="shoe-model mb-2" data-model="kd-series"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike KD Series" data-type="Basketball"> Nike KD Series </label> <span>24</span></li>
+                    <li class="shoe-model mb-2" data-model="kyrie-series"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Kyrie Series" data-type="Basketball"> Nike Kyrie Series </label> <span>14</span></li>
+                    <li class="shoe-model mb-2" data-model="air-jordan"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Jordan" data-type="Basketball"> Nike Air Jordan </label> <span>21</span></li>
+                    <li class="shoe-model mb-2" data-model="mercurial"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Mercurial" data-type="Soccer/Football Cleats"> Nike Mercurial </label> <span>23</span></li>
+                    <li class="shoe-model mb-2" data-model="phantom-gt"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Phantom GT" data-type="Soccer/Football Cleats"> Nike Phantom GT </label> <span>28</span></li>
+                    <li class="shoe-model mb-2" data-model="tiempo"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Tiempo" data-type="Soccer/Football Cleats"> Nike Tiempo </label> <span>24</span></li>
+                    <li class="shoe-model mb-2" data-model="sb-dunk"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike SB Dunk" data-type="Skateboarding"> Nike SB Dunk </label> <span>30</span></li>
+                    <li class="shoe-model mb-2" data-model="sb-stefan-janoski"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike SB Stefan Janoski" data-type="Skateboarding"> Nike SB Stefan Janoski </label> <span>21</span></li>
+                    <li class="shoe-model mb-2" data-model="court-air-vapor-pro"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="NikeCourt Air Vapor Pro" data-type="Tennis"> NikeCourt Air Vapor Pro </label> <span>21</span></li>
+                    <li class="shoe-model mb-2" data-model="court-air-gp-turbo"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="NikeCourt Air GP Turbo" data-type="Tennis"> NikeCourt Air GP Turbo </label> <span>23</span></li>
+                    <li class="shoe-model mb-2" data-model="air-zoom-infinity-tour"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Zoom Infinity Tour" data-type="Golf"> Nike Air Zoom Infinity Tour </label> <span>16</span></li>
+                    <li class="shoe-model mb-2" data-model="roshe-g"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Roshe G" data-type="Golf"> Nike Roshe G </label> <span>18</span></li>
+                    <li class="shoe-model mb-2" data-model="zoomx-dragonfly"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike ZoomX Dragonfly" data-type="Track & Field"> Nike ZoomX Dragonfly </label> <span>24</span></li>
+                    <li class="shoe-model mb-2" data-model="air-zoom-maxfly"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Zoom Maxfly" data-type="Track & Field"> Nike Air Zoom Maxfly </label> <span>15</span></li>
+                    <li class="shoe-model mb-2" data-model="superrep-cycle"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike SuperRep Cycle" data-type="Cycling"> Nike SuperRep Cycle </label> <span>20</span></li>
+                    <li class="shoe-model mb-2" data-model="free-rn"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Free RN" data-type="Minimalist & Barefoot"> Nike Free RN </label> <span>30</span></li>
+                </ul>
+            </div>
+
+
+            <!-- Colors Section -->
+            <div class="filter-section mb-4">
+                <h5>Colors</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox black"> Black </label> <span>82</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox white"> White </label> <span>79</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox grey"> Grey </label> <span>71</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox red"> Red </label> <span>56</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox purple"> Purple </label> <span>57</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox purplish-red"> Purplish-red </label> <span>42</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox pink"> Pink </label> <span>57</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox orange"> Orange </label> <span>69</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox blue"> Blue </label> <span>66</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox yellow"> Yellow </label> <span>45</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox brown"> Brown </label> <span>9</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="color-checkbox green"> Green </label> <span>67</span></li>
+                </ul>
+            </div>
+
+
+            <!-- Sizes Section -->
+            <div class="filter-section mb-4">
+                <h5>Sizes</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="37"> 37 </label> <span>85</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="38"> 38 </label> <span>91</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="39"> 39 </label> <span>74</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="40"> 40 </label> <span>188</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="41"> 41 </label> <span>87</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="42"> 42 </label> <span>80</span></li>
+                    <li class="mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="size-checkbox" value="43"> 43 </label> <span>95</span></li>
+                </ul>
+            </div>
+
+        </div>
+        </div>
+
+
+
+
+
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 product-list-container">
+
+        <!-- Shoe Cards Section -->
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="159" class="shoe-card" data-type="Running" data-model="Nike Air Zoom Pegasus"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567777/running13_zf2ngt.jpg" class="card-img-top" alt="Shoe Image" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Zoom Pegasus</h6>
+                        <div class="card-text price">159 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="women" data-price="153" class="shoe-card" data-type="Running" data-model="Nike Air Zoom Pegasus"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567777/running49_ybf2nz.jpg" class="card-img-top" alt="Shoe Image" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Zoom Pegasus</h6>
+                        <div class="price card-text">153 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-orange"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="men" data-price="183" class="shoe-card" data-type="Training & GYM" data-model="Nike Metcon"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567794/training5_zhwdvd.jpg" class="card-img-top" alt="Shoe Image" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Training & GYM</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Metcon</h6>
+                        <div class="price card-text">183 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="women" data-price="152" class="shoe-card" data-type="Training & GYM" data-model="Nike Metcon"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567793/training50_a5oqby.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Training & GYM</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Metcon</h6>
+                        <div class="price sale card-text">152 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-yellow"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="men" data-price="134" class="shoe-card" data-type="Running" data-model="Nike React Infinity Run"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567775/running3_srkwpo.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike React Infinity Run</h6>
+                        <div class="price card-text">134 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-red"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="women" data-price="113" class="shoe-card" data-type="Running" data-model="Nike React Infinity Run"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567779/running51_zk1ouk.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike React Infinity Run</h6>
+                        <div class="price card-text">113 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-orange"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="men" data-price="87" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Air Force1"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567764/lifestyle4_rdtodw.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Force 1</h6>
+                        <div class="price sale card-text">87 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-red"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="women" data-price="95" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Air Force1"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567765/lifestyle51_er9834.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Force 1</h6>
+                        <div class="price card-text">95 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-red"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="men" data-price="63" class="shoe-card" data-type="Running" data-model="Nike ZoomX Vaporfly"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567779/running52_bcugai.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike ZoomX Vaporfly</h6>
+                        <div class="price sale card-text">63 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4" data-category="women" data-price="53" class="shoe-card" data-type="Running" data-model="Nike ZoomX Vaporfly"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567777/running6_j9kngu.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike ZoomX Vaporfly</h6>
+                        <div class="price sale card-text">53 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-pink"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="122" class="shoe-card" data-type="Sandals & Slides" data-model="Nike Benassi Slides"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567781/sandals53_d4hj05.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Sandals & Slides</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Benassi Slides</h6>
+                        <div class="price card-text">122 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="102" class="shoe-card" data-type="Sandals & Slides" data-model="Nike Benassi Slides"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567780/sandals30_lqa9dp.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Sandals & Slides</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Benassi Slides</h6>
+                        <div class="price sale card-text">102 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-purplish-red"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="89" class="shoe-card" data-type="Hiking & Outdoor" data-model="Nike All Conditions Gear"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567778/hiking56_bndap6.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Hiking & Outdoor</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike All Conditions Gear</h6>
+                        <div class="price sale card-text">89 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="95" class="shoe-card" data-type="Hiking & Outdoor" data-model="Nike All Conditions Gear"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567775/hiking55_nn3lmy.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Hiking & Outdoor</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike All Conditions Gear</h6>
+                        <div class="price sale card-text">95 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="142" class="shoe-card" data-type="Training & GYM" data-model="Nike Free Trainer"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567792/training15_jmtxza.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Training & GYM</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Free Trainer</h6>
+                        <div class="price card-text">142 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="130" class="shoe-card" data-type="Training & GYM" data-model="Nike Free Trainer"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567795/training57_r2lquh.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Training & GYM</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Free Trainer</h6>
+                        <div class="price card-text">130 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="112" class="shoe-card" data-type="Training & GYM" data-model="Nike SuperRep"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567793/training23_v3f7bf.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Training & GYM</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SuperRep</h6>
+                        <div class="price sale card-text">112 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="143" class="shoe-card" data-type="Training & GYM" data-model="Nike SuperRep"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567794/training58_wileau.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Training & GYM</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SuperRep</h6>
+                        <div class="price card-text">143 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="65" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Blazer"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567766/lifestyle25_txzovn.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Blazer</h6>
+                        <div class="price sale card-text">65 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="98" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Blazer"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567767/lifestyle59_sbx3dp.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Blazer</h6>
+                        <div class="price sale card-text">98 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="52" class="shoe-card" data-type="Sandals & Slides" data-model="Nike Offcourt Slide"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567781/sandals54_jth7n7.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Sandals & Slides</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Offcourt Slide</h6>
+                        <div class="price card-text">52 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="56" class="shoe-card" data-type="Sandals & Slides" data-model="Nike Offcourt Slide"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567780/sandals29_lyauim.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Sandals & Slides</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Offcourt Slide</h6>
+                        <div class="price card-text">56 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="118" class="shoe-card" data-type="Running" data-model="Nike Free Run"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567779/running18_uhpjz0.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Free Run</h6>
+                        <div class="price card-text">118 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="145" class="shoe-card" data-type="Running" data-model="Nike Free Run"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567779/running60_cqnjpq.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Running</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Free Run</h6>
+                        <div class="price sale card-text">145 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="350" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Air Max"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567760/lifestyle20_aw4ih8.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Max</h6>
+                        <div class="price card-text">350 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="298" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Air Max"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567769/lifestyle62_jfnho3.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Max</h6>
+                        <div class="price sale card-text">298 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>38</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="330" class="shoe-card" data-type="Basketball" data-model="Nike LeBron Series"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567767/basketball32_kmgefx.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike LeBron Series</h6>
+                        <div class="price sale card-text">330 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-yellow"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+             <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="275" class="shoe-card" data-type="Basketball" data-model="Nike LeBron Series"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567763/basketball63_ebionx.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike LeBron Series</h6>
+                        <div class="price sale card-text">275 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-yellow"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="320" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Dunk"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567774/lifestyle64_bbdwci.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Dunk</h6>
+                        <div class="price card-text">320 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="420" class="shoe-card" data-type="Lifestyle & Casual" data-model="Nike Dunk"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567762/lifestyle19_yzorna.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Lifestyle & Casual</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Dunk</h6>
+                        <div class="price card-text">420 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="285" class="shoe-card" data-type="Basketball" data-model="Nike KD Series"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567762/basketball31_d4bucn.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike KD Series</h6>
+                        <div class="price sale card-text">285 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="235" class="shoe-card" data-type="Basketball" data-model="Nike KD Series"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567766/basketball65_bx7pxb.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike KD Series</h6>
+                        <div class="price card-text">235 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="312" class="shoe-card" data-type="Soccer/Football Cleats" data-model="Nike Mercurial"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567783/soccer21_cot8xy.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Soccer/Football Cleats</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Mercurial</h6>
+                        <div class="price sale card-text">312 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="286" class="shoe-card" data-type="Soccer/Football Cleats" data-model="Nike Mercurial"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567785/soccer66_n2u3p1.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Soccer/Football Cleats</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Mercurial</h6>
+                        <div class="price sale card-text">286 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="412" class="shoe-card" data-type="Skateboarding" data-model="Nike SB Dunk"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567783/skateboarding67_mq0tm2.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Skateboarding</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SB Dunk</h6>
+                        <div class="price card-text">412 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-yellow"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="315" class="shoe-card" data-type="Skateboarding" data-model="Nike SB Dunk"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567785/skateboarding40_u3gnoh.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Skateboarding</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SB Dunk</h6>
+                        <div class="price card-text">315 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="342" class="shoe-card" data-type="Tennis" data-model="NikeCourt Air Vapor Pro"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567788/tennis45_kc5ivg.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Tennis</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">NikeCourt Air Vapor Pro</h6>
+                        <div class="price card-text">342 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="342" class="shoe-card" data-type="Tennis" data-model="NikeCourt Air Vapor Pro"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567788/tennis68_xc4tkn.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Tennis</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">NikeCourt Air Vapor Pro</h6>
+                        <div class="price card-text">305 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="311" class="shoe-card" data-type="Golf" data-model="Nike Air Infinity Tour"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567775/golf36_xz1309.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Golf</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Zoom Infinity Tour</h6>
+                        <div class="price sale card-text">311 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="233" class="shoe-card" data-type="Golf" data-model="Nike Air Infinity Tour"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567774/golf69_lmsdu5.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Golf</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Zoom Infinity Tour</h6>
+                        <div class="price sale card-text">233 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-red"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="222" class="shoe-card" data-type="Track & Field" data-model="Nike ZoomX Dragonfly"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567791/track69_b1j3es.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Track & Field</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike ZoomX Dragonfly</h6>
+                        <div class="price card-text">222 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="230" class="shoe-card" data-type="Track & Field" data-model="Nike ZoomX Dragonfly"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567789/track42_yh6iwj.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Track & Field</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike ZoomX Dragonfly</h6>
+                        <div class="price card-text">230 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="178" class="shoe-card" data-type="Cycling" data-model="Nike SuperRep Cycle"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567769/cycling41_cq1iqs.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Cycling</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SuperRep Cycle</h6>
+                        <div class="price sale card-text">178 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="154" class="shoe-card" data-type="Cycling" data-model="Nike SuperRep Cycle"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567771/cycling70_sjz1dl.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Cycling</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SuperRep Cycle</h6>
+                        <div class="price sale card-text">154 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="178" class="shoe-card" data-type="Skateboarding" data-model="Nike SB Stefan Janoski"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567787/skateboarding38_bwqji8.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Skateboarding</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SB Stefan Janoski</h6>
+                        <div class="price sale card-text">178 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-brown"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="260" class="shoe-card" data-type="Skateboarding" data-model="Nike SB Stefan Janoski"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567783/skateboarding71_ckid8f.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Skateboarding</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike SB Stefan Janoski</h6>
+                        <div class="price card-text">260 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-orange"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="412" class="shoe-card" data-type="Golf" data-model="Nike Roshe G"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567778/golf73_wuq7qm.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Golf</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Roshe G</h6>
+                        <div class="price card-text">412 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="444" class="shoe-card" data-type="Golf" data-model="Nike Roshe G"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567772/golf72_nks1aj.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Golf</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Roshe G</h6>
+                        <div class="price card-text">444 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="255" class="shoe-card" data-type="Minimalist & Barefoot" data-model="Nike Free RN"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567775/minimalist73_shldwn.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Minimalist & Barefoot</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Free RN</h6>
+                        <div class="price card-text">255 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="230" class="shoe-card" data-type="Minimalist & Barefoot" data-model="Nike Free RN"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567771/minimalist44_it0nku.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Minimalist & Barefoot</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Free RN</h6>
+                        <div class="price card-text">230 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                            <div class="color-block color-yellow"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="513" class="shoe-card" data-type="Tennis" data-model="NikeCourt Air GP Turbo"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567787/tennis46_gkwza1.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Tennis</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">NikeCourt Air GP Turbo</h6>
+                        <div class="price card-text">513 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-yellow"></div>
+                            <div class="color-block color-brown"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="439" class="shoe-card" data-type="Tennis" data-model="NikeCourt Air GP Turbo"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567792/tennis74_hb9spg.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Tennis</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">NikeCourt Air GP Turbo</h6>
+                        <div class="price card-text">439 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="108" class="shoe-card" data-type="Track & Field" data-model="Nike Air Zoom Maxfly"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567791/track75_untgv0.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Track & Field</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Zoom Maxfly</h6>
+                        <div class="price sale card-text">108 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>41</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-blue"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="125" class="shoe-card" data-type="Track & Field" data-model="Nike Air Zoom Maxfly"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567790/track43_fb2gpr.png" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Track & Field</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Zoom Maxfly</h6>
+                        <div class="price card-text">125 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-pink"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="222" class="shoe-card" data-type="Soccer/Football Cleats" data-model="Nike Phantom GT"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567788/soccer47_ekajhp.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type v">Soccer/Football Cleats</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Phantom GT</h6>
+                        <div class="price card-text">222 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-orange"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="195" class="shoe-card" data-type="Soccer/Football Cleats" data-model="Nike Phantom GT"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567786/soccer76_oqumfj.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Soccer/Football Cleats</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Phantom GT</h6>
+                        <div class="price sale card-text">195 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-purple"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-red"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="530" class="shoe-card" data-type="Basketball" data-model="Nike Kyrie Series"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567768/basketball77_eqzbik.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Kyrie Series</h6>
+                        <div class="price card-text">530 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="330" class="shoe-card" data-type="Basketball" data-model="Nike Kyrie Series"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567767/basketball33_vxoxaz.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Kyrie Series</h6>
+                        <div class="price card-text">330 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-brown"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="247" class="shoe-card" data-type="Soccer/Football Cleats" data-model="Nike Tiempo"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567786/soccer48_zzc3xf.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Soccer/Football Cleats</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Tiempo</h6>
+                        <div class="price card-text">247 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="120" class="shoe-card" data-type="Soccer/Football Cleats" data-model="Nike Tiempo"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567795/soccer79_ogncta.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Soccer/Football Cleats</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Tiempo</h6>
+                        <div class="price card-text">120 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>38</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-black"></div>
+                            <div class="color-block color-purplish-red"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="men" data-price="135" class="shoe-card" data-type="Basketball" data-model="Nike Air Jordan"><!-- men -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567771/basketball34_whb4fj.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Jordan</h6>
+                        <div class="price sale card-text">135 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>40</span>, <span>41</span>, <span>42</span>, <span>43</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-white"></div>
+                            <div class="color-block color-grey"></div>
+                            <div class="color-block color-green"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-lg-3 mb-4" data-category="women" data-price="187" class="shoe-card" data-type="Basketball" data-model="Nike Air Jordan"><!-- women -->
+                <div class="card h-100">
+                    <img src="https://res.cloudinary.com/dhgsqhlxw/image/upload/v1730567769/basketball78_k3dc4t.jpg" alt="Shoe Image" class="card-img-top" loading="lazy">
+                        <div class="shoe-info card-body">
+                        <h5 class="shoe-type card-title">Basketball</h5>
+                        <h6 class="shoe-model card-subtitle mb-2 text-muted">Nike Air Jordan</h6>
+                        <div class="price card-text">187 €</div> <!-- or use <div class="price sale"> -->
+                        <div class="sizes mb-2">
+                            <span>37</span>, <span>39</span>, <span>40</span>
+                        </div>
+                        <div class="colors">
+                            <div class="color-block color-red"></div>
+                            <div class="color-block color-blue"></div>
+                            <div class="color-block color-yellow"></div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+ <script>
+
+
+    // Reloading page function
+    function fakeReload() {
+    // Show the overlay
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'block';
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Simulate loading
+    setTimeout(() => {
+        // Hide the overlay
+        overlay.style.display = 'none';
+    }, 700);
+}    
+
+
+
+    
+    // 1 ---> filter by "women", "men", "all" categories
+    // Get all the filter buttons
+    const filterButtons = document.querySelectorAll('.filter-category');
+
+    // Get all the product items
+    const productItems = document.querySelectorAll('.col-md-4');
+
+    // Add event listeners to filter buttons
+    filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const selectedCategory = this.getAttribute('data-category');
+
+        // Loop through all product items
+        productItems.forEach(item => {
+            // Get the category of the current item
+            const itemCategory = item.getAttribute('data-category');
+
+            // Show all items if "All" is clicked
+            if (selectedCategory === 'all') {
+                item.style.display = 'block';
+            }
+            // Show items that match the selected category, hide others
+            else if (selectedCategory === itemCategory) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+            });
+            fakeReload();
+
+        });
+    });
+   
+
+
+
+    // 2 ---> Sort by price functionality
+
+    // When initially loading the products, add a data attribute for the original order
+    let originalOrder = 0;
+    document.querySelectorAll('.col-md-4').forEach(product => {
+        product.dataset.originalOrder = originalOrder++;
+    });
+
+    document.getElementById('sort').addEventListener('change', function() {
+        const products = Array.from(document.querySelectorAll('.col-md-4')); // Get all products
+        const sortOption = this.value;
+
+        if (sortOption === '') {
+        // If no sort option is selected, reset to original order
+            resetProductOrder();
+            return;
+    }
+
+
+    products.sort(function(a, b) {
+        const priceA = parseFloat(a.getAttribute('data-price'));
+        const priceB = parseFloat(b.getAttribute('data-price'));
+
+    // Perform sorting based on the selected option
+        if (sortOption === 'LTH') {
+            return priceA - priceB;
+        } else if (sortOption === 'HTL') {
+            return priceB - priceA;
+        } 
+    });
+
+    // Re-append the sorted products to the container
+        const productContainer = document.querySelector('.product-list-container'); // The container holding all products
+        products.forEach(function(product) {
+            productContainer.appendChild(product); // Re-append sorted products
+    });
+        fakeReload();
+
+    });
+
+   
+
+
+
+
+    // 3---> Clear All Filters Button
+
+    // Get the "Clear Filters" button
+    const clearFiltersBtn = document.getElementById('clear-filters');
+
+    // Add event listener for the "Clear Filters" button
+    clearFiltersBtn.addEventListener('click', function() {
+        // Uncheck all shoe type checkboxes
+        shoeTypes.forEach(type => {
+            type.checked = false;
+    });
+
+    // Uncheck all shoe model checkboxes
+    shoeModels.forEach(model => {
+        model.checked = false;
+    });
+
+    // Uncheck all availability (on sale, in stock) checkboxes
+    const onSaleCheckbox = document.getElementById('on-sale-checkbox');
+    const inStockCheckbox = document.getElementById('in-stock-checkbox');
+    onSaleCheckbox.checked = false;
+    inStockCheckbox.checked = false;
+
+    // Uncheck all price range checkboxes
+    const priceCheckboxes = document.querySelectorAll('.price-checkbox');
+    priceCheckboxes.forEach(price => {
+        price.checked = false;
+    });
+
+    // Uncheck all color checkboxes
+    const colorCheckboxes = document.querySelectorAll('.color-checkbox');
+    colorCheckboxes.forEach(color => {
+        color.checked = false;
+    });
+
+    // Uncheck all size checkboxes
+    const sizeCheckboxes = document.querySelectorAll('.size-checkbox');
+    sizeCheckboxes.forEach(size => {
+        size.checked = false;
+    });
+
+    // Reset the category filter (e.g., "Women", "Men", "All")
+    filterButtons.forEach(button => {
+        button.classList.remove('active'); // Remove active class from all buttons
+    });
+    const allButton = document.querySelector('.filter-category[data-category="all"]');
+    if (allButton) {
+        allButton.classList.add('active'); // Set "All" as the default category
+    }
+
+    // Reset the sorting dropdown to its default value
+    const sortDropdown = document.getElementById('sort');
+    if (sortDropdown) {
+        sortDropdown.selectedIndex = ''; // Reset to the first option
+    }
+    // Reset the product order to its original state
+    resetProductOrder();
+
+    // Call the updateShoeModels and filterShoeCards functions to reset the page to its initial state
+    updateShoeModels(); // This will update the models based on the reset filters
+    filterShoeCards();  // This will show all items since no filters are applied
+    fakeReload();
+
+});
+    function resetProductOrder() {
+    const productContainer = document.querySelector('.product-list-container');
+    const products = Array.from(productContainer.querySelectorAll('.col-md-4'));
+    
+    // Sort products based on their original order
+    products.sort((a, b) => {
+        return parseInt(a.dataset.originalOrder) - parseInt(b.dataset.originalOrder);
+    });
+
+    // Re-append the products in their original order
+    products.forEach(product => {
+        productContainer.appendChild(product);
+    });
+}
+
+
+
+
+
+
+
+    // 4 ---> On Sail or In Stock Checkbox functionality
+
+    document.addEventListener("DOMContentLoaded", function() {
+    // Select the checkboxes
+        const onSaleCheckbox = document.getElementById('on-sale-checkbox');
+        const inStockCheckbox = document.getElementById('in-stock-checkbox');
+    
+    // Get all items
+        const items = document.querySelectorAll('.col-md-4');
+
+    // Function to filter the items
+        function filterItems() {
+            items.forEach(item => {
+                const isOnSale = item.querySelector('.price').classList.contains('sale'); // Check if the item is on sale
+
+            // Show only on-sale items if "On Sale" is checked
+                if (onSaleCheckbox.checked) {
+                    item.style.display = isOnSale ? "block" : "none";
+            } 
+            // Show all items if "In Stock" is checked (since all are in stock)
+                else if (inStockCheckbox.checked) {
+                    item.style.display = "block"; // Show all items
+            }
+        });
+    }
+
+    // Function to handle exclusive checkbox behavior
+        function toggleExclusiveCheckboxes() {
+            if (this === onSaleCheckbox && this.checked) {
+                inStockCheckbox.checked = false;  // Uncheck "In Stock" if "On Sale" is checked
+            } else if (this === inStockCheckbox && this.checked) {
+                onSaleCheckbox.checked = false;  // Uncheck "On Sale" if "In Stock" is checked
+            }
+            filterItems();  // Reapply the filter
+    }
+
+    // Add event listeners to checkboxes
+
+        onSaleCheckbox.addEventListener('change', toggleExclusiveCheckboxes);
+        inStockCheckbox.addEventListener('change', toggleExclusiveCheckboxes);
+        onSaleCheckbox.addEventListener('change', fakeReload);
+        inStockCheckbox.addEventListener('change', fakeReload);
+
+        
+
+    // Initial filter on page load
+        filterItems();
+
+    });
+
+
+
+
+
+    // 5 ---> Price Reng Selection functionality
+    document.addEventListener("DOMContentLoaded", function() {
+    // Select the checkboxes
+    const onSaleCheckbox = document.getElementById('on-sale-checkbox');
+    const inStockCheckbox = document.getElementById('in-stock-checkbox');
+    const priceCheckboxes = document.querySelectorAll('.price-checkbox');
+
+    // Get all items
+    const items = document.querySelectorAll('.col-md-4');
+
+    // Function to filter items by price
+    function filterByPrice(item) {
+        const price = parseInt(item.getAttribute('data-price'), 10);
+        const selectedPrices = Array.from(priceCheckboxes)
+                                   .filter(checkbox => checkbox.checked)
+                                   .map(checkbox => checkbox.value);
+
+        if (selectedPrices.length === 0) return true; // Show all items if no price filter is selected
+
+        return selectedPrices.some(priceRange => {
+            if (priceRange === '<100') {
+                return price < 100;
+            } else if (priceRange === '100-150') {
+                return price >= 100 && price <= 150;
+            } else if (priceRange === '150-200') {
+                return price >= 150 && price <= 200;
+            } else if (priceRange === '>200') {
+                return price > 200;
+            }
+            return false;
+        });
+    }
+
+    // Function to filter the items
+    function filterItems() {
+        items.forEach(item => {
+            const isOnSale = item.querySelector('.price').classList.contains('sale'); // Check if the item is on sale
+
+            let showItem = true;
+
+            // Filter by availability
+            if (onSaleCheckbox.checked) {
+                showItem = isOnSale;  // Show only on-sale items
+            } else if (inStockCheckbox.checked) {
+                showItem = true;  // Show all items if "In Stock" is checked
+            }
+
+            // Filter by price
+            if (showItem) {
+                showItem = filterByPrice(item);  // Apply price filter
+            }
+
+            // Show or hide the item
+            item.style.display = showItem ? "block" : "none";
+        });
+    }
+
+    // Function to handle exclusive checkbox behavior for "On Sale" and "In Stock"
+    function toggleExclusiveCheckboxes() {
+        if (this === onSaleCheckbox && this.checked) {
+            inStockCheckbox.checked = false;  // Uncheck "In Stock" if "On Sale" is checked
+        } else if (this === inStockCheckbox && this.checked) {
+            onSaleCheckbox.checked = false;  // Uncheck "On Sale" if "In Stock" is checked
+        }
+        filterItems();  // Reapply the filter
+    }
+
+    // Add event listeners to checkboxes
+    onSaleCheckbox.addEventListener('change', function(){
+        toggleExclusiveCheckboxes();
+        fakeReload();
+        });
+
+    inStockCheckbox.addEventListener('change', function(){
+        toggleExclusiveCheckboxes();
+        fakeReload();
+        });
+
+    priceCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function(){
+        filterItems();
+        fakeReload();
+        });
+    });
+
+    // Initial filter on page load
+    filterItems();
+
+});
+
+
+
+
+
+
+
+    //6 ---> type and model functionality with filtering
+
+    //This line selects all input elements with the name "shoe-type" and stores them in the shoeTypes constant
+    const shoeTypes = document.querySelectorAll('input[name="shoe-type"]');
+    //This line selects all input elements with the name "shoe-model" and stores them in the shoeModels constant.
+    const shoeModels = document.querySelectorAll('input[name="shoe-model"]');
+    //This line selects all elements with the class "shoe-card" and stores them in the shoeCards constant.
+    const shoeCards = document.querySelectorAll('.col-md-4[data-category]');
+
+    //This creates an object that maps shoe types to arrays of shoe models. Each key is a shoe type, and its value is an array of shoe models belonging to that type
+    const modelTypeMap = {
+       'Running': ['Nike Air Zoom Pegasus', 'Nike React Infinity Run', 'Nike ZoomX Vaporfly', 'Nike Free Run'],
+       'Training & GYM': ['Nike Metcon', 'Nike SuperRep', 'Nike Free Trainer'],
+       'Lifestyle & Casual': ['Nike Air Force1', 'Nike Air Max', 'Nike Blazer', 'Nike Dunk'],
+       'Hiking & Outdoor': ['Nike All Conditions Gear'],
+       'Sandals & Slides': ['Nike Benassi Slides', 'Nike Offcourt Slide'],
+       'Basketball': ['Nike LeBron Series', 'Nike KD Series', 'Nike Kyrie Series', 'Nike Air Jordan'],
+       'Soccer/Football Cleats': ['Nike Mercurial', 'Nike Phantom GT', 'Nike Tiempo'],
+       'Skateboarding': ['Nike SB Dunk', 'Nike SB Stefan Janoski'],
+       'Tennis': ['NikeCourt Air Vapor Pro', 'NikeCourt Air GP Turbo'],
+       'Golf': ['Nike Air Zoom Infinity Tour', 'Nike Roshe G'],
+       'Track & Field': ['Nike ZoomX Dragonfly', 'Nike Air Zoom Maxfly'],
+       'Cycling': ['Nike SuperRep Cycle'],
+       'Minimalist & Barefoot': ['Nike Free RN']
+};
+
+    //This function updates the visibility and state of shoe models based on selected shoe types
+    function updateShoeModels() {
+        //This creates an array of selected shoe types, excluding "All".
+        const selectedTypes = Array.from(shoeTypes)
+        .filter(type => type.checked && type.value !== 'All')
+        .map(type => type.value);
+
+    //This checks if the "All" option is selected
+    const isAllSelected = Array.from(shoeTypes).find(type => type.value === 'All').checked;
+
+    //This loops through each shoe model checkbox.
+    shoeModels.forEach(model => {
+        //This gets the shoe type associated with the current model from its data attribute
+        const modelLabel = model.closest('label');
+        const modelType = model.getAttribute('data-type');
+        //This enables or disables the model checkbox based on whether its type is selected or "All" is selected.
+        if (isAllSelected || selectedTypes.includes(modelType)) {
+            model.disabled = false;
+            modelLabel.style.color = '';
+        } else {
+            model.disabled = true;
+            model.checked = false;
+            modelLabel.style.color = 'grey';
+        }
+    });
+    //This calls the function to filter shoe cards based on the current selection
+    filterShoeCards();
+}
+    //This function filters the shoe cards based on selected types and models
+    function filterShoeCards() {
+    //These lines create arrays of selected shoe types and models
+        const selectedTypes = Array.from(shoeTypes)
+        .filter(type => type.checked && type.value !== 'All')
+        .map(type => type.value);
+        const selectedModels = Array.from(shoeModels)
+        .filter(model => model.checked)
+        .map(model => model.value);
+
+    //This loops through each shoe card
+    shoeCards.forEach(card => {
+        //These lines get the type and model of the current card from its data attributes.
+        const cardType = card.querySelector('.shoe-type').textContent.trim();
+        const cardModel = card.querySelector('.shoe-model').textContent.trim();
+        //These check if the card's type and model match the selected types and models
+        const typeMatch = selectedTypes.length === 0 || selectedTypes.includes(cardType);
+        const modelMatch = selectedModels.length === 0 || selectedModels.includes(cardModel);
+    
+        //This shows or hides the card based on whether it matches the selected types and models
+        if (typeMatch && modelMatch) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+    //This function handles changes to the shoe type checkboxes
+    function handleTypeChange(e) {
+        if (e.target.value === 'All' && e.target.checked) {
+            shoeTypes.forEach(type => {
+        if (type.value !== 'All') {
+            type.checked = false;
+        }
+    });
+  }     else if (e.target.checked) {
+            shoeTypes.forEach(type => {
+        if (type.value === 'All') {
+            type.checked = false;
+        }
+    });
+  }
+    updateShoeModels();
+}
+    //These lines add event listeners to the shoe type and model checkboxes
+    shoeTypes.forEach(type => type.addEventListener('change', handleTypeChange));
+
+    shoeModels.forEach(model => model.addEventListener('change', updateShoeModels));
+
+    // This calls the updateShoeModels function to set up the initial state of the page
+    updateShoeModels();
+
+    
+    
+
+
+
+
+    // 7 ---> Color Selection Functionality
+    document.querySelectorAll('.color-checkbox').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        filterShoesByColor();
+        fakeReload();
+
+    });
+});
+
+    function filterShoesByColor() {
+        const selectedColors = [];
+    
+        document.querySelectorAll('.color-checkbox').forEach(function(checkbox) {
+            if (checkbox.checked) {
+                selectedColors.push(checkbox.classList[1]); // Get the color class (e.g., "black", "white", etc.)
+        }
+    });
+
+    // Get all the shoe cards
+    const shoeCards = document.querySelectorAll('.col-md-4');
+    
+    shoeCards.forEach(function(card) {
+        const shoeColors = Array.from(card.querySelectorAll('.color-block')).map(function(colorBlock) {
+            return colorBlock.classList[1]; // Get the color class (e.g., "color-black", "color-white", etc.)
+        });
+
+        // Check if the shoe has any of the selected colors
+        const hasSelectedColor = selectedColors.some(function(color) {
+            return shoeColors.includes('color-' + color);
+        });
+
+        if (hasSelectedColor || selectedColors.length === 0) {
+            card.style.display = ''; // Show the card if it matches any selected color or if no color is selected
+        } else {
+            card.style.display = 'none'; // Hide the card if it doesn't match any selected color
+        }
+    });
+}
+
+
+
+
+
+    
+    // 8 ---> Size Selection Functionality
+
+    // Function to handle size filtering
+    function filterBySize() {
+        const selectedSizes = [];
+
+    // Get all checked size checkboxes
+    document.querySelectorAll('.size-checkbox:checked').forEach((checkbox) => {
+        selectedSizes.push(checkbox.value); // Add size to the selectedSizes array
+    });
+
+    // Get all shoe cards
+    const shoeCards = document.querySelectorAll('.card');
+
+    shoeCards.forEach((card) => {
+        const shoeSizes = Array.from(card.querySelectorAll('.sizes span')).map((sizeSpan) => sizeSpan.textContent.trim());
+
+        // Check if the shoe has any of the selected sizes
+        const hasSize = selectedSizes.length === 0 || selectedSizes.some((size) => shoeSizes.includes(size));
+
+        if (hasSize) {
+            card.parentElement.style.display = 'block'; // Show card
+        } else {
+            card.parentElement.style.display = 'none'; // Hide card
+        }
+    });
+}
+
+    // Add event listener to all size checkboxes
+    document.querySelectorAll('.size-checkbox').forEach((checkbox) => {
+        checkbox.addEventListener('change',function() {
+        filterBySize();
+        fakeReload();
+
+        });
+    });
+
+    // Initially show all shoes when the page loads
+    filterBySize();
+
+    
+
+
+
+
+
+    // 9---> Integrated Filtring Funcionality
+    
+
+    //The code inside this function will run once the entire HTML document has been fully loaded and parsed. Ensures that all elements are available for manipulation before the script is executed.
+    document.addEventListener("DOMContentLoaded", function() {
+        //Selects all elements with the class .filter-category (like ‘Women’, ‘Men’, ‘All’), which are the buttons used to filter by category.
+        const filterButtons = document.querySelectorAll('.filter-category');
+        //Selects all the product cards with the class .col-md-4, representing individual shoe products
+        const productItems = document.querySelectorAll('.col-md-4');
+
+        // This function is responsible for filtering the product items based on the selected filters (category, availability, price, type, model, color, size)
+        function filterItems() {
+
+            //Retrieves the category that is currently active (selected). If no category is active, it defaults to ‘all’ (showing all products)
+            const selectedCategory = document.querySelector('.filter-category.active')?.getAttribute('data-category') || 'all';
+            
+            //Checks whether the “On Sale” and “In Stock” checkboxes are selected, returning true or false.
+            const onSaleChecked = document.getElementById('on-sale-checkbox').checked;
+            const inStockChecked = document.getElementById('in-stock-checkbox').checked;
+            
+            //Gets all price checkboxes, then filters the checked ones and stores their values (e.g., <100, 100-150).
+            const priceCheckboxes = document.querySelectorAll('.price-checkbox');
+            const priceRanges = Array.from(priceCheckboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+            
+            //These lines select the checked shoe types, models, colors, and sizes, respectively, and convert them into arrays of values.
+            const shoeTypes = Array.from(document.querySelectorAll('input[name="shoe-type"]:checked')).map(type => type.value);
+            // Check if "All" is selected in shoe types
+            const isAllSelected = shoeTypes.includes('All')
+            const shoeModels = Array.from(document.querySelectorAll('input[name="shoe-model"]:checked')).map(model => model.value);
+            const colorCheckboxes = Array.from(document.querySelectorAll('.color-checkbox:checked')).map(checkbox => checkbox.classList[1]);
+            const sizeCheckboxes = Array.from(document.querySelectorAll('.size-checkbox:checked')).map(checkbox => checkbox.value);
+
+            productItems.forEach(item => {
+
+                //Retrieves the product’s category from the data-category attribute
+                const itemCategory = item.getAttribute('data-category');
+
+                //Gets the price of the product and converts it to a number (parseFloat).
+                const price = parseFloat(item.getAttribute('data-price'));
+
+                //Checks whether the product is on sale by checking if its price has the class sale.
+                const isOnSale = item.querySelector('.price').classList.contains('sale');
+
+                //Gets the shoe type and model by extracting the text content from the respective elements.
+                const itemType = item.querySelector('.shoe-type').textContent.trim();
+                const itemModel = item.querySelector('.shoe-model').textContent.trim();
+
+                //Gets arrays of colors and sizes available for the product
+                const itemColors = Array.from(item.querySelectorAll('.color-block')).map(colorBlock => colorBlock.classList[1]);
+                const itemSizes = Array.from(item.querySelectorAll('.sizes span')).map(sizeSpan => sizeSpan.textContent.trim());
+
+                // Filter logic
+
+                //Checks if the selected category matches the product’s category, or if “All” is selected
+                const categoryMatch = selectedCategory === 'all' || selectedCategory === itemCategory;
+
+                //Ensures the product matches the availability criteria. If “On Sale” is checked, it only shows on-sale items. If “In Stock” is checked, it shows all (because all are assumed in stock)
+                const availabilityMatch = (!onSaleChecked || isOnSale) && (!inStockChecked || inStockChecked);
+
+                //Compares the product’s price against the selected price ranges
+                const priceMatch = priceRanges.length === 0 || priceRanges.some(range => {
+                    if (range === '<100') return price < 100;
+                    if (range === '100-150') return price >= 100 && price <= 150;
+                    if (range === '150-200') return price >= 150 && price <= 200;
+                    if (range === '>200') return price > 200;
+                });
+
+                //Compares the product’s shoe type, model, color, and size with the selected filters. If no specific filter is selected (e.g., shoeTypes.length === 0), it defaults to showing all items
+                const typeMatch = isAllSelected || shoeTypes.length === 0 || shoeTypes.includes(itemType);
+                const modelMatch = shoeModels.length === 0 || shoeModels.includes(itemModel);
+                const colorMatch = colorCheckboxes.length === 0 || colorCheckboxes.some(color => itemColors.includes('color-' + color));
+                const sizeMatch = sizeCheckboxes.length === 0 || sizeCheckboxes.some(size => itemSizes.includes(size));
+
+                // Set display based on all filter criteria
+                //If all filter conditions (categoryMatch, availabilityMatch, etc.) are true, the product item is shown (block). Otherwise, it is hidden (none).
+                if (categoryMatch && availabilityMatch && priceMatch && typeMatch && modelMatch && colorMatch && sizeMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listeners for each filter
+        //When a category button is clicked, it Removes the active class from all buttons, Adds the active class to the clicked button, Calls filterItems() to apply the selected category filter
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active')); // Remove active class from other buttons
+                button.classList.add('active'); // Add active class to the clicked button
+                filterItems(); // Call the filter function
+                fakeReload();
+            });
+        });
+
+        //Adds an event listener to the sort dropdown (sort element)
+        //When the user selects a sort option (LTH or HTL), it Sorts the product items by price, Re-appends the sorted items to the container, Calls filterItems() to reapply filters after sorting
+        document.getElementById('sort').addEventListener('change', function() {
+            const sortOption = this.value;
+            const sortedItems = Array.from(productItems).sort((a, b) => {
+                const priceA = parseFloat(a.getAttribute('data-price'));
+                const priceB = parseFloat(b.getAttribute('data-price'));
+                return sortOption === 'LTH' ? priceA - priceB : priceB - priceA;
+            });
+            const productContainer = document.querySelector('.product-list-container'); 
+            sortedItems.forEach(product => productContainer.appendChild(product));
+            filterItems(); // Reapply filters after sorting
+            fakeReload();
+        });
+
+        // Attach change events to checkboxes and dropdowns
+        //Adds a change event listener to all checkboxes. When a checkbox is checked/unchecked, it triggers the filterItems() function to update the displayed items
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function(){
+
+            filterItems();
+            fakeReload();
+        });
+        });
+
+        // Initialize filter on page load
+        filterItems();
+    });
+
+
+
+</script>       
+</body>
+</html>
