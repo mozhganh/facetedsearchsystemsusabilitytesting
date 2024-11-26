@@ -2394,10 +2394,10 @@
         category: null,
         availability: null,
         price: null,
-        type: null,
-        model: null,
-        color: null,
-        size: null
+        type: [],       // Initialize as an array
+    model: [],
+    color: [],
+    size: []
     };
     
 
@@ -3179,7 +3179,10 @@
         filteredShoes = filteredShoes.filter(shoe => shoe.category === filters.category);
     }
     if (filters.availability) {
-        filteredShoes = filteredShoes.filter(shoe => shoe.availability === filters.availability);
+        filteredShoes = filteredShoes.filter(shoe => {
+            if (filters.availability === 'in stock') return shoe.availability === 'in stock' || shoe.availability === 'on sale';
+            return shoe.availability === filters.availability;
+        });
     }
     if (filters.price) {
         filteredShoes = filteredShoes.filter(shoe => {
@@ -3224,7 +3227,9 @@
             if (shoe.availability === 'on sale') {
             counts.availability['On Sale%']++;
         }
+            if (shoe.availability === 'in stock' || shoe.availability === 'on sale') {
             counts.availability['In Stock']++;
+        }
 
             // Price
             if (shoe.price < 100) counts.priceRanges['<100']++;
@@ -3345,26 +3350,19 @@
         });
     });
     //Selects all checkboxes inside .filters for attributes like type, model, or others (generic filters).
-    document.querySelectorAll('.filters input[type="checkbox"]').forEach(input => {
-    //Adds a change event listener to dynamically handle any attribute filter.
-    input.addEventListener('change', (e) => {
+    document.querySelectorAll('.type-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
         const type = e.target.getAttribute('data-filter-type');
         const value = e.target.value;
 
-        if (!filters[type]) {
-            filters[type] = [];
+        if (!Array.isArray(filters.type)) {
+            filters.type = [];
         }
-
-        if (e.target.checked) {
-            filters[type].push(value);
+        if (this.checked) {
+            filters.type.push(this.value);
         } else {
-            filters[type] = filters[type].filter(v => v !== value);
+            filters.type = filters.type.filter(value => value !== this.value);
         }
-
-        if (filters[type].length === 0) {
-            filters[type] = null;
-        }
-
         applyFilters();
     });
 });
