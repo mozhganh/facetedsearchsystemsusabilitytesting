@@ -119,7 +119,7 @@
             border: 1px solid #ffccf2; /* Light pink border when selected */
         }
 
-/* Specific colors */
+
         .black {
             background-color: black;
         }
@@ -168,7 +168,7 @@
             background-color: green;
         }
 
-/* Ensure that the background color is visible even when the checkbox is selected */
+        /* Ensure that the background color is visible even when the checkbox is selected */
         .color-checkbox:checked {
             box-shadow: 0 0 0 1px #ffccf2; /* Light pink border when checked */
         }  
@@ -242,8 +242,10 @@
         .color-brown { background-color:brown; }
         .color-green { background-color: green; }
 
+        #alltype { display: none;}
 
-         .submit-btn {
+
+    .submit-btn {
         display: inline-block;
         background-color: #DBD7D7; 
         color: black; 
@@ -341,7 +343,7 @@
                 <h5>Types</h5>
                 <ul id="shoe-types" class="list-unstyled">
                     
-                    <li class="shoe-type mb-2"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="all-types" name="shoe-type" value="All" data-filter-type="type"> All </label> <span>700</span></li>
+                    <li class="shoe-type mb-2" id="alltype"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" class="all-types" name="shoe-type" value="All" data-filter-type="type"> All </label> <span>700</span></li>
                     <li class="shoe-type mb-2" data-type="running"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Running" data-filter-type="type"> Running </label> <span>88</span></li>
                     <li class="shoe-type mb-2" data-type="Training & GYM"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Training & GYM" data-filter-type="type"> Training & GYM </label> <span>74</span></li>
                     <li class="shoe-type mb-2" data-type="Lifestyle & Casual"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-type" value="Lifestyle & Casual" data-filter-type="type"> Lifestyle & Casual </label> <span>100</span></li>
@@ -2412,7 +2414,7 @@
 
 
 
-    // Calculate and store initial counts
+    // Calculate and store initial counts, Sets initial values to 0 or empty objects for subsequent aggregation. This function is designed to categorize and count attributes of a dataset (shoesData) across multiple dimensions, including availability, price ranges, types, models, colors, and sizes. The use of dynamic object keys and initialization with || 0 ensures that the function can adapt to new attributes without predefined keys, making it robust for datasets with varied or expanding attributes.
     function calculateInitialCounts() {
         initialCounts = {
             availability: { 'On Sale%': 0, 'In Stock': 0 },
@@ -2750,13 +2752,22 @@
         }
         filterItems();  // Reapply the filter
     }
+    // Function to handle exclusive behavior for price checkboxes
+    function togglePriceExclusiveCheckboxes(event) {
+        priceCheckboxes.forEach(checkbox => {
+            if (checkbox !== event.target) {
+                checkbox.checked = false; // Uncheck all other checkboxes
+            }
+        });
+        filterItems(); // Reapply the filter
+    }
 
     // Add event listeners to checkboxes
     onSaleCheckbox.addEventListener('change', toggleExclusiveCheckboxes);
     inStockCheckbox.addEventListener('change', toggleExclusiveCheckboxes);
 
     priceCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', filterItems);
+        checkbox.addEventListener('change', togglePriceExclusiveCheckboxes);
     });
 
     // Initial filter on page load
@@ -3110,51 +3121,51 @@
     document.querySelectorAll('.filter-category').forEach(item => {
         item.addEventListener('click', (e) => {
             filters.category = e.target.dataset.category;
-            applyFilters(); // Re-apply filters after setting category
+             // Re-apply filters after setting category
         });
     });  
 
     document.getElementById('on-sale-checkbox').addEventListener('change', (e) => {
         filters.availability = e.target.checked ? 'on sale' : null;
-        applyFilters();
+        
     });
     document.getElementById('in-stock-checkbox').addEventListener('change', (e) => {
         filters.availability = e.target.checked ? 'in stock' : null;
-        applyFilters();
+        
     });
 
     document.querySelectorAll('.price-checkbox').forEach(input => {
         input.addEventListener('change', (e) => {
             filters.price = e.target.checked ? e.target.value : null;
-            applyFilters();
+            
         });
     });
 
     document.querySelectorAll('.shoe-type input').forEach(input => {
         input.addEventListener('change', (e) => {
             filters.type = e.target.checked ? e.target.value : null;
-            applyFilters();
+            
         });
     });
 
     document.querySelectorAll('.shoe-model input').forEach(input => {
         input.addEventListener('change', (e) => {
             filters.model = e.target.checked ? e.target.value : null;
-            applyFilters();
+            
         });
     });
 
     document.querySelectorAll('.color-checkbox').forEach(input => {
         input.addEventListener('change', (e) => {
             filters.color = e.target.checked ? input.classList[1] : null; // Assuming color class like 'black', 'blue'
-            applyFilters();
+            
         });
     });
 
     document.querySelectorAll('.size-checkbox').forEach(input => {
         input.addEventListener('change', (e) => {
             filters.size = e.target.checked ? input.value : null;
-            applyFilters();
+            
         });
     });
 
@@ -3306,14 +3317,16 @@
 
 
     // Event listeners for filters
+    //Selects all elements with the class .filter-category.
     document.querySelectorAll('.filter-category').forEach(item => {
+        //For each element, an event listener is added to listen for a click event.
         item.addEventListener('click', (e) => {
             filters.category = e.target.dataset.category;
             applyFilters();
         });
     });
 
-
+    //Listens for changes (change event) on the on-sale-checkbox and in-stock-checkbox inputs.
     document.getElementById('on-sale-checkbox').addEventListener('change', (e) => {
         filters.availability = e.target.checked ? 'on sale' : null;
         applyFilters();
@@ -3324,25 +3337,16 @@
         applyFilters();
     });
 
-
+    //Selects all checkboxes related to price filtering (.price-checkbox). 
     document.querySelectorAll('.price-checkbox').forEach(input => {
-    input.addEventListener('change', (e) => {
-        if (!filters.price) {
-            filters.price = [];
-        }
-        if (e.target.checked) {
-            filters.price.push(e.target.value);
-        } else {
-            filters.price = filters.price.filter(price => price !== e.target.value);
-        }
-        if (filters.price.length === 0) {
-            filters.price = null;
-        }
-        applyFilters();
+        input.addEventListener('change', (e) => {
+            filters.price = e.target.checked ? e.target.value : null;
+            
+        });
     });
-});
-
+    //Selects all checkboxes inside .filters for attributes like type, model, or others (generic filters).
     document.querySelectorAll('.filters input[type="checkbox"]').forEach(input => {
+    //Adds a change event listener to dynamically handle any attribute filter.
     input.addEventListener('change', (e) => {
         const type = e.target.getAttribute('data-filter-type');
         const value = e.target.value;
@@ -3365,9 +3369,10 @@
     });
 });
 
-
+    //Selects all checkboxes related to color filtering (.color-checkbox).
 
     document.querySelectorAll('.color-checkbox').forEach(input => {
+    //Adds a change event listener to handle changes in the selected colors.
     input.addEventListener('change', (e) => {
         if (!filters.color) {
             filters.color = [];
@@ -3385,8 +3390,9 @@
     });
 });
 
-
+    //Selects all checkboxes related to size filtering (.size-checkbox).
     document.querySelectorAll('.size-checkbox').forEach(input => {
+    //Adds a change event listener to track changes in the selected sizes.
     input.addEventListener('change', (e) => {
         if (!filters.size) {
             filters.size = [];
