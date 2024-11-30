@@ -8,35 +8,36 @@
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #2a0845 0%, #6441A5 100%);
-            color: #fff;
-            margin: 0;
+            margin: 30px 0px 0px 0px;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            text-align: center;
+            
         }
         .container {
-            background: rgba(255, 255, 255, 0.1);
+            background: #ffae42;
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(4px);
+            color: #333333;
             border: 1px solid rgba(255, 255, 255, 0.18);
             max-width: 80%;
-            width: 400px;
+            width: 500px;
         }
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2em;
+            margin-bottom: 15px;
+            
+            text-align: center;
+            color: #2a0845;
         }
         h2 {
-            font-size: 1.8em;
-            margin-bottom: 30px;
-            color: #ffd700;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #000;
         }
         .btn-container {
             display: flex;
@@ -45,8 +46,8 @@
         }
         .btn {
             display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            padding: 15px 50px;
+            background: linear-gradient(45deg, #2a0845, #9370DB);
             color: #fff;
             text-decoration: none;
             border-radius: 50px;
@@ -56,11 +57,12 @@
             cursor: pointer;
             font-size: 1.1em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-align: center;
         }
         .btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            background: linear-gradient(45deg, #9370DB, #2a0845);
         }
         @media (max-width: 600px) {
             .container {
@@ -68,10 +70,10 @@
                 width: 90%;
             }
             h1 {
-                font-size: 2em;
+                font-size: 1.5em;
             }
             h2 {
-                font-size: 1.5em;
+                font-size: 1em;
             }
             .btn {
                 padding: 12px 24px;
@@ -81,8 +83,8 @@
         p {
             font-size: 1em;
             line-height: 1.6;
-            margin-bottom: 30px;
-            color: #f0f0f0;
+            margin-bottom: 20px;
+            color: #4E342E;
         }
         @media (max-width: 600px) {
             p {
@@ -93,11 +95,33 @@
 </head>
 <body>
     <div class="container">
-        <h1>Usability Study for Faceted Search Systems</h1>
-        <h2>Let's have some fun!</h2>
-        <p>
-            I have three prototypes that I'd love your thoughts on! You can find the links below. After you've explored each prototype, just click the "Submit Your Feedback Here" button under the "Size" section. You'll be taken to a questionnaire for each prototype separately. Once you've submitted your answers, feel free to come back to this page and check out the next prototype. Thank you for your help!
-        </p>
+        <h1>The Usability Study Of</h1>
+        <h1>"Faceted Search Systems"</h1>
+        
+
+        <h2><span style="font-weight: bold;">There are 3 prototypes that I would greatly appreciate your feedback on!</span></h2>
+        <p style="color: #000; text-align: center;">(Links are provided below)</p>
+    
+        <h3><strong>Important Information Before You Begin Testing:</strong></h3>
+    
+        <li>For the best experience, please use a <em><strong>Desktop</strong></em> or <em><strong>Tablet/iPad.</strong></em></li>
+        <li>Please go through each prototype one by one.</li>
+        <li>You will have <strong>4 minutes</strong> to explore each prototype, after which you will be automatically redirected to a questionnaire.</li>
+        <li>Each questionnaire consists of <strong>14 questions</strong> designed to be quick and straightforward to answer.</li>
+        <li>13 of the questions utilize a <strong>Linear Scale</strong> format, allowing you to rate your opinion or perception on a continuous scale. For example:  
+            <blockquote>How satisfied are you with our web page?<br>
+            1 (Very Unsatisfied) — 5 (Very Satisfied)<br>
+            </blockquote>
+            <p>The lowest number indicates <em><strong>"Strongly Disagree"</strong></em>, while the highest signifies <em><strong>"Strongly Agree."</strong></em></p>
+        </li>
+        <li>The final question for each prototype invites an <strong>open-ended response</strong>, where you can provide detailed feedback. This question is optional but highly valuable to me.</li>
+        <li>Please remember to click the <strong>"Submit"</strong> button after completing each questionnaire.</li>
+    
+    
+    <p style="color: #000; text-align: center;"><em>I sincerely appreciate your time and effort in assisting me with improvements. Your feedback is invaluable to my research and will make a significant difference!</em></p>
+
+
+
         <div class="btn-container" id="btnContainer">
             <!-- Buttons will be inserted here by JavaScript -->
         </div>
