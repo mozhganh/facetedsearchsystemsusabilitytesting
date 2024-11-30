@@ -252,6 +252,7 @@
         .color-brown { background-color:brown; }
         .color-green { background-color: green; }
 
+
         .submit-btn {
         display: inline-block;
         background-color: #DBD7D7; 
@@ -278,7 +279,6 @@
             font-size: 18px;
         }
     }
-
         
 
 
@@ -444,10 +444,7 @@
                 </ul>
             </div>
 
-
-            <div class="col-md-12 text-center my-2">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScT7csapQXXy7CUBqREw6Cik8rLiUIidNsMPvUVDgbNySIslQ/viewform?usp=sf_link" class="submit-btn btn mb-4" target="_blank" rel="noopener noreferrer">Submit Your Feedback Here</a>
-            </div>
+            
 
         </div>
         </div>
@@ -1630,7 +1627,10 @@
 
  <script>
 
-
+    // Redirect to Google Form after 4 minutes
+    setTimeout(() => {
+        window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLScT7csapQXXy7CUBqREw6Cik8rLiUIidNsMPvUVDgbNySIslQ/viewform?usp=sf_link";
+    }, 240000); // 240,000 milliseconds = 4 minutes
 
     // 0---> Clear All Filters Button
 
