@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Prototypes</title>
-</head>
-<style>
+    <style>
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #2a0845 0%, #6441A5 100%);
@@ -86,7 +85,6 @@
             color: #f0f0f0;
         }
         @media (max-width: 600px) {
-            /* ... (keep your existing media query styles) ... */
             p {
                 font-size: 0.9em;
             }
@@ -100,11 +98,40 @@
         <p>
             I have three prototypes that I'd love your thoughts on! You can find the links below. After you've explored each prototype, just click the "Submit Your Feedback Here" button under the "Size" section. You'll be taken to a questionnaire for each prototype separately. Once you've submitted your answers, feel free to come back to this page and check out the next prototype. Thank you for your help!
         </p>
-        <div class="btn-container">
-            <a href="Prototype1/index.html" class="btn" target="_blank">Prototype 1</a>
-            <a href="Prototype2/index.html" class="btn" target="_blank">Prototype 2</a>
-            <a href="Prototype3/index.html" class="btn" target="_blank">Prototype 3</a>
+        <div class="btn-container" id="btnContainer">
+            <!-- Buttons will be inserted here by JavaScript -->
         </div>
     </div>
+
+    <script>
+        // Array of prototype links and names
+        const prototypes = [
+            { name: "Prototype 1", link: "Prototype1/index.html" },
+            { name: "Prototype 2", link: "Prototype2/index.html" },
+            { name: "Prototype 3", link: "Prototype3/index.html" }
+        ];
+
+        // Function to shuffle an array
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle the prototypes array
+        shuffle(prototypes);
+
+        // Dynamically create buttons and insert them into the container
+        const btnContainer = document.getElementById("btnContainer");
+        prototypes.forEach(proto => {
+            const btn = document.createElement("a");
+            btn.href = proto.link;
+            btn.className = "btn";
+            btn.target = "_blank";
+            btn.textContent = proto.name;
+            btnContainer.appendChild(btn);
+        });
+    </script>
 </body>
 </html>
