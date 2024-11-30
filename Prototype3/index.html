@@ -436,9 +436,7 @@
                 </ul>
             </div>
 
-            <div class="col-md-12 text-center my-2">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd7sBJbD0dKYT2qdsu_HOP2QHd-5UdwVo3PVeX7uxQLttrFGg/viewform?usp=sf_link" class="submit-btn btn mb-4" target="_blank" rel="noopener noreferrer">Submit Your Feedback Here</a>
-            </div>
+            
 
         </div>
         </div>
@@ -1621,6 +1619,10 @@
 
  <script>
 
+    // Redirect to Google Form after 4 minutes
+    setTimeout(() => {
+        window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd7sBJbD0dKYT2qdsu_HOP2QHd-5UdwVo3PVeX7uxQLttrFGg/viewform?usp=sf_link";
+    }, 240000); // 240,000 milliseconds = 4 minutes
     
     const shoesData = [
     //  shoe objects
