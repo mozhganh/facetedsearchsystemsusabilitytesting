@@ -61,7 +61,7 @@
         }
 
         .clear-filters-btn:hover {
-            background-color: #291c23; /* Darker red on hover */
+            background-color: #FF4500; /* Darker red on hover */
             color: #ffffff;
         }
         .container2 {
@@ -279,7 +279,20 @@
             font-size: 18px;
         }
     }
-        
+      
+
+    .filter-categories .filter-category {
+    cursor: pointer; /* Makes the span appear clickable */
+    color: #fff; /* Default text color */
+    padding: 5px 10px; /* Adds some padding for a button-like appearance */
+    border-radius: 5px; /* Adds a slight roundness to the edges */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effect */
+}
+
+.filter-categories .filter-category:hover {
+    background-color: #FF4500; /* Hover background color (orange) */
+    color: #fff; /* Changes text color to white for better contrast */
+}  
 
 
     </style>
@@ -373,7 +386,7 @@
             <!-- Models Section -->
             <div class="filter-section mb-4">
                 <h5>Models</h5>
-                <h6>Choose Your Desired Type to See Models</h6>
+                <span style="color: #FFDD00;"><em>Select types from the top section, to activate the corresponding models!</em></span>
                 <ul id="shoe-models" class="list-unstyled">
                     <li class="shoe-model mb-2" data-model="air-zoom-pegaus"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike Air Zoom Pegasus" data-type="Running"> Nike Air Zoom Pegasus </label> <span>28</span></li>
                     <li class="shoe-model mb-2" data-model="react-infinity-run"><label class="d-flex justify-content-between align-items-center"><input type="checkbox" name="shoe-model" value="Nike React Infinity Run" data-type="Running"> Nike React Infinity Run </label> <span>21</span></li>
@@ -1627,10 +1640,10 @@
 
  <script>
 
-    // Redirect to Google Form after 3 minutes
+    // Redirect to Google Form after 4 minutes
     setTimeout(() => {
         window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLScT7csapQXXy7CUBqREw6Cik8rLiUIidNsMPvUVDgbNySIslQ/viewform?usp=sf_link";
-    }, 180000); // 180,000 milliseconds = 3 minutes
+    }, 240000); // 240,000 milliseconds = 4 minutes
 
     // 0---> Clear All Filters Button
 
