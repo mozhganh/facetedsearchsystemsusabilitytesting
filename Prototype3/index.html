@@ -3360,10 +3360,13 @@ document.querySelectorAll('.size-checkbox').forEach(checkbox => {
     });
 
     // Update size counts
-    Object.entries(counts.sizes).forEach(([size, count]) => {
-        const span = findLabelSpan(size);
-        if (span) span.textContent = count;
-    });
+    document.querySelectorAll('.size-checkbox').forEach(checkbox => {
+    const sizeSpan = checkbox.parentElement.nextElementSibling;
+    const size = checkbox.value;
+    if (sizeSpan) {
+        sizeSpan.textContent = counts.sizes[size] || 0;
+    }
+});
 }
     
 
